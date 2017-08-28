@@ -1,6 +1,11 @@
 #ifndef KALMAN_FILTER_H_
 #define KALMAN_FILTER_H_
 #include "Eigen/Dense"
+#include "tools.h"
+#include <iostream>
+#include <math.h>
+
+using namespace std;
 
 class KalmanFilter {
 public:
@@ -19,9 +24,15 @@ public:
 
   // measurement matrix
   Eigen::MatrixXd H_;
+  
+  // Jacobian matrix
+  Eigen::MatrixXd Hj;
 
   // measurement covariance matrix
-  Eigen::MatrixXd R_;
+  Eigen::MatrixXd R_laser;
+  
+  // measurement covariance matrix
+  Eigen::MatrixXd R_radar;
 
   /**
    * Constructor
@@ -43,7 +54,7 @@ public:
    * @param Q_in Process covariance matrix
    */
   void Init(Eigen::VectorXd &x_in, Eigen::MatrixXd &P_in, Eigen::MatrixXd &F_in,
-      Eigen::MatrixXd &H_in, Eigen::MatrixXd &R_in, Eigen::MatrixXd &Q_in);
+      Eigen::MatrixXd &H_in, Eigen::MatrixXd &Hj_in, MatrixXd &R_laser_in, MatrixXd &R_radar_in, Eigen::MatrixXd &Q_in);
 
   /**
    * Prediction Predicts the state and the state covariance
